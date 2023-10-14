@@ -3,12 +3,23 @@ Library    SeleniumLibrary
 
 *** Test Cases ***
 
-Testaa hakutoimintoa tuotteen pääsivulta (hakusana ps5)    
-    ${ps}    Set Variable    PS5
-    #avataan selain
+1. Onko kaikilla tuotealueilla Landing Page
     Open Browser    http://www.jimms.fi    chrome    options=add_experimental_option("detach", True)
     Maximize Browser Window
     Sleep    2
+    #haetaan menussa olevat elementit css elementin kautta
+    ${menu_items} =   Get WebElements    css:#sitemegamenu > nav > ul
+    #Haetaan loopissa menun sisältämät tekstit ja siirrytään landing sivulle ja katsotaan löytyykö kyseinen teksti sivulta
+    FOR    ${landing}    IN    @{menu_items}
+        ${landing_text} =   Get Text    ${landing}
+        Click Element    ${landing}
+        Run Keyword And Warn On Failure    Wait Until Page Contains    ${landing_text}
+    END
+    
+
+2. Testaa hakutoimintoa tuotteen pääsivulta (hakusana ps5)
+    Go To    http://www.jimms.fi    
+    ${ps}    Set Variable    PS5
     #klikataan hakukenttää ja syötetään teksti
     Click Element    xpath://*[@id="searchinput"]
     Input Text    xpath://*[@id="searchinput"]    ${ps}
@@ -23,39 +34,37 @@ Testaa hakutoimintoa tuotteen pääsivulta (hakusana ps5)
     Page Should Contain    ${ps}
 
 
-Löytyykö tuotesivulta linkki "Lisää koriin"
+3. Löytyykö tuotesivulta linkki "Lisää koriin"
     Element Should Be Visible    xpath:/html/body/main/div[1]/div[2]/div/jim-product-cta-box/div/div[2]/div[2]/addto-cart-wrapper/div/a
 
 
-Löytyykö "Lisää koriin" -linkkiin liittyvä ikoni. Robotti ottaa ikonista kuvankaappauksen.
+4. Löytyykö "Lisää koriin" -linkkiin liittyvä ikoni. Robotti ottaa ikonista kuvankaappauksen.
     Element Should Be Visible    xpath:/html/body/main/div[1]/div[2]/div/jim-product-cta-box/div/div[2]/div[2]/addto-cart-wrapper/div/a/span
     Capture Element Screenshot    xpath:/html/body/main/div[1]/div[2]/div/jim-product-cta-box/div/div[2]/div[2]/addto-cart-wrapper/div/a/span
 
 
-Robotti lisää tuotteen ostoskoriin
-    Maximize Browser Window
-    Sleep    2
+5. Robotti lisää tuotteen ostoskoriin
     Click Element    xpath=//a[contains(@title, 'Lisää koriin')]
 
 
-Tuotenumeron poimiminen RMA hakemusta varten
+6. Tuotenumeron poimiminen RMA hakemusta varten
     ${tuoteNumero}=    Get Text    xpath:/html/body/main/div[1]/div[2]/div/div/jim-product-sku-ean-warranty-info/div[1]/span
     Log    ${tuoteNumero}
     Set Global Variable    ${tuoteNumero}
 
 
-Tuotenimen poimiminen RMA hakemusta varten
+7. Tuotenimen poimiminen RMA hakemusta varten
     ${tuoteNimi}    Get Text    xpath:/html/body/main/div[1]/div[2]/div/jim-product-cta-box/div/h1/span[2]
     Log    ${tuoteNimi}
     Set Global Variable    ${tuoteNimi}
 
 
-Tarkistetaan tuoteen saatavuus
+8. Tarkistetaan tuoteen saatavuus
     ${saatavuus}=    Get Text    xpath://*[@id="product-cta-box"]/div/div[2]/div[3]/availability-product/span/span
     Log     ${saatavuus}
     
 
-Yhteystiedon tarkastaminen yhteystietosivulta
+9. Yhteystiedon tarkastaminen yhteystietosivulta
     Go To    https://www.jimms.fi
     Sleep    3
     Click Element    xpath:/html/body/div[1]/div/a[4]
@@ -65,19 +74,17 @@ Yhteystiedon tarkastaminen yhteystietosivulta
     Run Keyword And Ignore Error    Should Contain    ${yhteystietonumero}    +358
 
 
-Jimms RMA lomake
+10. Jimms RMA lomake
     Go To    https://www.jimms.fi
     Sleep    2
     Run Keyword And Ignore Error    Scroll Element Into View    xpath:/html/body/footer/div[2]
-    # Tämä toimii oikein, mutta error tulee siitä huolimatta t. antti
-    
     #klikataan takuupalautus ja palautuslomake auki
     Sleep    2
     Click Element    xpath:/html/body/footer/div[1]/div[2]/div[1]/ul/li[3]/a
     Sleep    2
     Click Element    xpath:/html/body/main/div[2]/div/div[2]/div/div/ol/li[2]/a
 
-    #täytetään tiedot. muuttujat voidaan laittaa myöhemmin t. valtteri
+    #täytetään tiedot lomakkeeseen ja lisätään halutut tiedot aikaisemmin haetuilla muuttujilla
     
     Select From List By Label    id:RmaTypeID    Tuotteen takuu
     Input Text    id:pf-SalesID    12345
