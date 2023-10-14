@@ -1,3 +1,5 @@
+#Run-offs
+#Miko Vaaranmaa, Antti Anttola, Jesse Termonen, Valtteri Nissinen
 *** Settings ***
 Library    SeleniumLibrary
 Library    String
@@ -10,7 +12,7 @@ Library    String
     Sleep    2
     #haetaan menussa olevat elementit css elementin kautta
     ${menu_items} =   Get WebElements    css:#sitemegamenu > nav > ul
-    #Haetaan loopissa menun sisältämät tekstit ja siirrytään landing sivulle ja katsotaan löytyykö kyseinen teksti sivulta
+    #Haetaan loopissa menun sisältämät tekstit ja tehdään niistä lista
     FOR    ${landing}    IN    @{menu_items}
         ${landing_text}=    Get Text    ${landing}
         ${landing_text}=    Split String    ${landing_text}
@@ -114,5 +116,7 @@ Library    String
     #scrollataan lisaa alas
     Run Keyword And Ignore Error    Scroll Element Into View    xpath:/html/body/main/div[2]/div/div[2]/div/div/form/input[2]
 
+#Run-offs
+#Miko Vaaranmaa, Antti Anttola, Jesse Termonen, Valtteri Nissinen
 
 
