@@ -1,5 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
+Library    String
 
 *** Test Cases ***
 
@@ -11,11 +12,22 @@ Library    SeleniumLibrary
     ${menu_items} =   Get WebElements    css:#sitemegamenu > nav > ul
     #Haetaan loopissa menun sisältämät tekstit ja siirrytään landing sivulle ja katsotaan löytyykö kyseinen teksti sivulta
     FOR    ${landing}    IN    @{menu_items}
-        ${landing_text} =   Get Text    ${landing}
-        Click Element    ${landing}
-        Run Keyword And Warn On Failure    Wait Until Page Contains    ${landing_text}
+        ${landing_text}=    Get Text    ${landing}
+        ${landing_text}=    Split String    ${landing_text}
+        Create List    ${landing_text}            
+        FOR    ${element}    IN    @{landing_text}
+            Sleep    1
+            Go To    https://www.jimms.fi/fi/Product/${element}
+            #tarkastetaan että landingpage elementti löytyy sivulta
+            Sleep    1
+            Run Keyword And Ignore Error    Element Should Be Visible    xpath://*[@id="ocCategories"]
+            #haetaan id elementistä ja tarkastetaan että se on "ocCategories"
+            ${for_value}=    Get Element Attribute    //*[@id="ocCategories"]    id
+            Run Keyword And Ignore Error    Should Be Equal As Strings    ${for_value}    ocCategories
+            Log    ${element}
+        END    
     END
-    
+
 
 2. Testaa hakutoimintoa tuotteen pääsivulta (hakusana ps5)
     Go To    http://www.jimms.fi    
