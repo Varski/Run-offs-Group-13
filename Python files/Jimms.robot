@@ -1,5 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
+Library    String
 
 *** Test Cases ***
 
@@ -7,7 +8,25 @@ Library    SeleniumLibrary
     Open Browser    http://www.jimms.fi    chrome    options=add_experimental_option("detach", True)
     Maximize Browser Window
     Sleep    2
-    
+    #haetaan menussa olevat elementit css elementin kautta
+    ${menu_items} =   Get WebElements    css:#sitemegamenu > nav > ul
+    #Haetaan loopissa menun sisältämät tekstit ja siirrytään landing sivulle ja katsotaan löytyykö kyseinen teksti sivulta
+    FOR    ${landing}    IN    @{menu_items}
+        ${landing_text}=    Get Text    ${landing}
+        ${landing_text}=    Split String    ${landing_text}
+        Create List    ${landing_text}            
+        FOR    ${element}    IN    @{landing_text}
+            Sleep    1
+            Go To    https://www.jimms.fi/fi/Product/${element}
+            #tarkastetaan että landingpage elementti löytyy sivulta
+            Sleep    1
+            Run Keyword And Ignore Error    Element Should Be Visible    xpath://*[@id="ocCategories"]
+            #haetaan id elementistä ja tarkastetaan että se on "ocCategories"
+            ${for_value}=    Get Element Attribute    //*[@id="ocCategories"]    id
+            Run Keyword And Ignore Error    Should Be Equal As Strings    ${for_value}    ocCategories
+            Log    ${element}
+        END    
+    END
 
 
 2. Testaa hakutoimintoa tuotteen pääsivulta (hakusana ps5)
@@ -37,8 +56,6 @@ Library    SeleniumLibrary
 
 
 5. Robotti lisää tuotteen ostoskoriin
-    Maximize Browser Window
-    Sleep    2
     Click Element    xpath=//a[contains(@title, 'Lisää koriin')]
 
 
@@ -73,15 +90,13 @@ Library    SeleniumLibrary
     Go To    https://www.jimms.fi
     Sleep    2
     Run Keyword And Ignore Error    Scroll Element Into View    xpath:/html/body/footer/div[2]
-    # Tämä toimii oikein, mutta error tulee siitä huolimatta t. antti
-    
     #klikataan takuupalautus ja palautuslomake auki
     Sleep    2
     Click Element    xpath:/html/body/footer/div[1]/div[2]/div[1]/ul/li[3]/a
     Sleep    2
     Click Element    xpath:/html/body/main/div[2]/div/div[2]/div/div/ol/li[2]/a
 
-    #täytetään tiedot. muuttujat voidaan laittaa myöhemmin t. valtteri
+    #täytetään tiedot lomakkeeseen ja lisätään halutut tiedot aikaisemmin haetuilla muuttujilla
     
     Select From List By Label    id:RmaTypeID    Tuotteen takuu
     Input Text    id:pf-SalesID    12345
