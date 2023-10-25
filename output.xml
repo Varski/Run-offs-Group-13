@@ -1,43 +1,1101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1.1 (Python 3.11.4 on win32)" generated="20231012 16:06:43.656" rpa="false" schemaversion="4">
-<suite id="s1" name="Jimms" source="c:\temp\Gitit\Run-offs-Group-13\Python files\Jimms.robot">
-<test id="s1-t1" name="1. Onko kaikilla tuotealueilla Landing Page" line="6">
+<robot generator="Robot 6.1.1 (Python 3.11.4 on win32)" generated="20231014 16:16:11.525" rpa="false" schemaversion="4">
+<suite id="s1" name="Jimms" source="c:\temp\Gitit\Run-offs-Group-13\python files\jimms.robot">
+<test id="s1-t1" name="1. Onko kaikilla tuotealueilla Landing Page" line="9">
 <kw name="Open Browser" library="SeleniumLibrary">
 <arg>http://www.jimms.fi</arg>
 <arg>chrome</arg>
 <arg>options=add_experimental_option("detach", True)</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<msg timestamp="20231012 16:06:43.833" level="INFO">Opening browser 'chrome' to base url 'http://www.jimms.fi'.</msg>
-<status status="PASS" starttime="20231012 16:06:43.831" endtime="20231012 16:06:47.736"/>
+<msg timestamp="20231014 16:16:11.818" level="INFO">Opening browser 'chrome' to base url 'http://www.jimms.fi'.</msg>
+<status status="PASS" starttime="20231014 16:16:11.818" endtime="20231014 16:16:16.527"/>
 </kw>
 <kw name="Maximize Browser Window" library="SeleniumLibrary">
 <doc>Maximizes current browser window.</doc>
-<status status="PASS" starttime="20231012 16:06:47.736" endtime="20231012 16:06:47.949"/>
+<status status="PASS" starttime="20231014 16:16:16.529" endtime="20231014 16:16:16.893"/>
 </kw>
 <kw name="Sleep" library="BuiltIn">
 <arg>2</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<msg timestamp="20231012 16:06:49.950" level="INFO">Slept 2 seconds</msg>
-<status status="PASS" starttime="20231012 16:06:47.950" endtime="20231012 16:06:49.950"/>
+<msg timestamp="20231014 16:16:18.895" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20231014 16:16:16.894" endtime="20231014 16:16:18.896"/>
+</kw>
+<kw name="Get WebElements" library="SeleniumLibrary">
+<var>${menu_items}</var>
+<arg>css:#sitemegamenu &gt; nav &gt; ul</arg>
+<doc>Returns a list of WebElement objects matching the ``locator``.</doc>
+<msg timestamp="20231014 16:16:18.913" level="INFO">${menu_items} = [&lt;selenium.webdriver.remote.webelement.WebElement (session="009c53fd9ec0401a208e4c23be455fec", element="4F168DD980AADA367CE951C07D49890E_element_51")&gt;]</msg>
+<status status="PASS" starttime="20231014 16:16:18.897" endtime="20231014 16:16:18.914"/>
+</kw>
+<for flavor="IN">
+<var>${landing}</var>
+<value>@{menu_items}</value>
+<iter>
+<var name="${landing}">&lt;selenium.webdriver.remote.webelement.WebElement (session="009c53fd9ec0401a208e4c23be455fec", element="4F168DD980AADA367CE951C07D49890E_element_51")&gt;</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${landing_text}</var>
+<arg>${landing}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:16:18.982" level="INFO">${landing_text} = Tietokoneet
+Komponentit
+Oheislaitteet
+Pelaaminen
+Verkkotuotteet
+Tarvikkeet
+Erikoistuotteet
+Ohjelmistot
+Palvelut
+Kampanjat</msg>
+<status status="PASS" starttime="20231014 16:16:18.915" endtime="20231014 16:16:18.983"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${landing_text}</var>
+<arg>${landing_text}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<msg timestamp="20231014 16:16:18.983" level="INFO">${landing_text} = ['Tietokoneet', 'Komponentit', 'Oheislaitteet', 'Pelaaminen', 'Verkkotuotteet', 'Tarvikkeet', 'Erikoistuotteet', 'Ohjelmistot', 'Palvelut', 'Kampanjat']</msg>
+<status status="PASS" starttime="20231014 16:16:18.983" endtime="20231014 16:16:18.984"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<arg>${landing_text}</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" starttime="20231014 16:16:18.984" endtime="20231014 16:16:18.984"/>
+</kw>
+<for flavor="IN">
+<var>${element}</var>
+<value>@{landing_text}</value>
+<iter>
+<var name="${element}">Tietokoneet</var>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:19.985" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:18.985" endtime="20231014 16:16:19.986"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi/fi/Product/${element}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:19.986" level="INFO">Opening url 'https://www.jimms.fi/fi/Product/Tietokoneet'</msg>
+<status status="PASS" starttime="20231014 16:16:19.986" endtime="20231014 16:16:23.636"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:24.639" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:23.636" endtime="20231014 16:16:24.639"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:16:24.679" level="INFO">Element 'xpath://*[@id="ocCategories"]' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:16:24.640" endtime="20231014 16:16:24.679"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:24.640" endtime="20231014 16:16:24.680"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${for_value}</var>
+<arg>//*[@id="ocCategories"]</arg>
+<arg>id</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20231014 16:16:24.710" level="INFO">${for_value} = ocCategories</msg>
+<status status="PASS" starttime="20231014 16:16:24.680" endtime="20231014 16:16:24.711"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Be Equal As Strings</arg>
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20231014 16:16:24.711" endtime="20231014 16:16:24.712"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:24.711" endtime="20231014 16:16:24.712"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${element}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:16:24.712" level="INFO">Tietokoneet</msg>
+<status status="PASS" starttime="20231014 16:16:24.712" endtime="20231014 16:16:24.713"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:18.984" endtime="20231014 16:16:24.713"/>
+</iter>
+<iter>
+<var name="${element}">Komponentit</var>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:25.713" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:24.713" endtime="20231014 16:16:25.713"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi/fi/Product/${element}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:25.714" level="INFO">Opening url 'https://www.jimms.fi/fi/Product/Komponentit'</msg>
+<status status="PASS" starttime="20231014 16:16:25.714" endtime="20231014 16:16:26.225"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:27.227" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:26.225" endtime="20231014 16:16:27.227"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:16:27.256" level="INFO">Element 'xpath://*[@id="ocCategories"]' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:16:27.228" endtime="20231014 16:16:27.256"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:27.228" endtime="20231014 16:16:27.257"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${for_value}</var>
+<arg>//*[@id="ocCategories"]</arg>
+<arg>id</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20231014 16:16:27.281" level="INFO">${for_value} = ocCategories</msg>
+<status status="PASS" starttime="20231014 16:16:27.257" endtime="20231014 16:16:27.281"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Be Equal As Strings</arg>
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20231014 16:16:27.282" endtime="20231014 16:16:27.282"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:27.282" endtime="20231014 16:16:27.282"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${element}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:16:27.283" level="INFO">Komponentit</msg>
+<status status="PASS" starttime="20231014 16:16:27.283" endtime="20231014 16:16:27.283"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:24.713" endtime="20231014 16:16:27.283"/>
+</iter>
+<iter>
+<var name="${element}">Oheislaitteet</var>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:28.284" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:27.284" endtime="20231014 16:16:28.285"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi/fi/Product/${element}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:28.286" level="INFO">Opening url 'https://www.jimms.fi/fi/Product/Oheislaitteet'</msg>
+<status status="PASS" starttime="20231014 16:16:28.285" endtime="20231014 16:16:29.105"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:30.106" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:29.106" endtime="20231014 16:16:30.106"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:16:30.132" level="INFO">Element 'xpath://*[@id="ocCategories"]' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:16:30.107" endtime="20231014 16:16:30.132"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:30.107" endtime="20231014 16:16:30.132"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${for_value}</var>
+<arg>//*[@id="ocCategories"]</arg>
+<arg>id</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20231014 16:16:30.155" level="INFO">${for_value} = ocCategories</msg>
+<status status="PASS" starttime="20231014 16:16:30.132" endtime="20231014 16:16:30.155"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Be Equal As Strings</arg>
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20231014 16:16:30.156" endtime="20231014 16:16:30.156"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:30.155" endtime="20231014 16:16:30.156"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${element}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:16:30.156" level="INFO">Oheislaitteet</msg>
+<status status="PASS" starttime="20231014 16:16:30.156" endtime="20231014 16:16:30.157"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:27.283" endtime="20231014 16:16:30.157"/>
+</iter>
+<iter>
+<var name="${element}">Pelaaminen</var>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:31.158" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:30.157" endtime="20231014 16:16:31.158"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi/fi/Product/${element}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:31.159" level="INFO">Opening url 'https://www.jimms.fi/fi/Product/Pelaaminen'</msg>
+<status status="PASS" starttime="20231014 16:16:31.158" endtime="20231014 16:16:31.610"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:32.612" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:31.610" endtime="20231014 16:16:32.612"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:16:32.640" level="INFO">Element 'xpath://*[@id="ocCategories"]' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:16:32.613" endtime="20231014 16:16:32.640"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:32.613" endtime="20231014 16:16:32.641"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${for_value}</var>
+<arg>//*[@id="ocCategories"]</arg>
+<arg>id</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20231014 16:16:32.663" level="INFO">${for_value} = ocCategories</msg>
+<status status="PASS" starttime="20231014 16:16:32.641" endtime="20231014 16:16:32.664"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Be Equal As Strings</arg>
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20231014 16:16:32.664" endtime="20231014 16:16:32.664"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:32.664" endtime="20231014 16:16:32.665"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${element}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:16:32.665" level="INFO">Pelaaminen</msg>
+<status status="PASS" starttime="20231014 16:16:32.665" endtime="20231014 16:16:32.665"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:30.157" endtime="20231014 16:16:32.665"/>
+</iter>
+<iter>
+<var name="${element}">Verkkotuotteet</var>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:33.668" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:32.666" endtime="20231014 16:16:33.668"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi/fi/Product/${element}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:33.669" level="INFO">Opening url 'https://www.jimms.fi/fi/Product/Verkkotuotteet'</msg>
+<status status="PASS" starttime="20231014 16:16:33.669" endtime="20231014 16:16:34.260"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:35.261" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:34.260" endtime="20231014 16:16:35.261"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:16:35.291" level="INFO">Element 'xpath://*[@id="ocCategories"]' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:16:35.262" endtime="20231014 16:16:35.291"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:35.261" endtime="20231014 16:16:35.291"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${for_value}</var>
+<arg>//*[@id="ocCategories"]</arg>
+<arg>id</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20231014 16:16:35.314" level="INFO">${for_value} = ocCategories</msg>
+<status status="PASS" starttime="20231014 16:16:35.292" endtime="20231014 16:16:35.314"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Be Equal As Strings</arg>
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20231014 16:16:35.315" endtime="20231014 16:16:35.316"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:35.315" endtime="20231014 16:16:35.316"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${element}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:16:35.316" level="INFO">Verkkotuotteet</msg>
+<status status="PASS" starttime="20231014 16:16:35.316" endtime="20231014 16:16:35.316"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:32.666" endtime="20231014 16:16:35.317"/>
+</iter>
+<iter>
+<var name="${element}">Tarvikkeet</var>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:36.318" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:35.317" endtime="20231014 16:16:36.318"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi/fi/Product/${element}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:36.319" level="INFO">Opening url 'https://www.jimms.fi/fi/Product/Tarvikkeet'</msg>
+<status status="PASS" starttime="20231014 16:16:36.318" endtime="20231014 16:16:36.797"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:37.798" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:36.797" endtime="20231014 16:16:37.798"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:16:37.824" level="INFO">Element 'xpath://*[@id="ocCategories"]' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:16:37.800" endtime="20231014 16:16:37.824"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:37.799" endtime="20231014 16:16:37.825"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${for_value}</var>
+<arg>//*[@id="ocCategories"]</arg>
+<arg>id</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20231014 16:16:37.851" level="INFO">${for_value} = ocCategories</msg>
+<status status="PASS" starttime="20231014 16:16:37.825" endtime="20231014 16:16:37.851"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Be Equal As Strings</arg>
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20231014 16:16:37.852" endtime="20231014 16:16:37.852"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:37.852" endtime="20231014 16:16:37.853"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${element}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:16:37.853" level="INFO">Tarvikkeet</msg>
+<status status="PASS" starttime="20231014 16:16:37.853" endtime="20231014 16:16:37.854"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:35.317" endtime="20231014 16:16:37.854"/>
+</iter>
+<iter>
+<var name="${element}">Erikoistuotteet</var>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:38.855" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:37.854" endtime="20231014 16:16:38.855"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi/fi/Product/${element}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:38.856" level="INFO">Opening url 'https://www.jimms.fi/fi/Product/Erikoistuotteet'</msg>
+<status status="PASS" starttime="20231014 16:16:38.856" endtime="20231014 16:16:39.342"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:40.344" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:39.342" endtime="20231014 16:16:40.344"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:16:40.372" level="INFO">Element 'xpath://*[@id="ocCategories"]' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:16:40.346" endtime="20231014 16:16:40.373"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:40.345" endtime="20231014 16:16:40.373"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${for_value}</var>
+<arg>//*[@id="ocCategories"]</arg>
+<arg>id</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20231014 16:16:40.404" level="INFO">${for_value} = ocCategories</msg>
+<status status="PASS" starttime="20231014 16:16:40.373" endtime="20231014 16:16:40.404"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Be Equal As Strings</arg>
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20231014 16:16:40.405" endtime="20231014 16:16:40.405"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:40.404" endtime="20231014 16:16:40.406"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${element}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:16:40.407" level="INFO">Erikoistuotteet</msg>
+<status status="PASS" starttime="20231014 16:16:40.406" endtime="20231014 16:16:40.407"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:37.854" endtime="20231014 16:16:40.407"/>
+</iter>
+<iter>
+<var name="${element}">Ohjelmistot</var>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:41.408" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:40.408" endtime="20231014 16:16:41.408"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi/fi/Product/${element}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:41.409" level="INFO">Opening url 'https://www.jimms.fi/fi/Product/Ohjelmistot'</msg>
+<status status="PASS" starttime="20231014 16:16:41.408" endtime="20231014 16:16:41.864"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:42.865" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:41.864" endtime="20231014 16:16:42.865"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:16:42.892" level="INFO">Element 'xpath://*[@id="ocCategories"]' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:16:42.867" endtime="20231014 16:16:42.892"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:42.866" endtime="20231014 16:16:42.892"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${for_value}</var>
+<arg>//*[@id="ocCategories"]</arg>
+<arg>id</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20231014 16:16:42.918" level="INFO">${for_value} = ocCategories</msg>
+<status status="PASS" starttime="20231014 16:16:42.893" endtime="20231014 16:16:42.918"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Be Equal As Strings</arg>
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20231014 16:16:42.919" endtime="20231014 16:16:42.919"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:42.918" endtime="20231014 16:16:42.919"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${element}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:16:42.920" level="INFO">Ohjelmistot</msg>
+<status status="PASS" starttime="20231014 16:16:42.919" endtime="20231014 16:16:42.920"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:40.407" endtime="20231014 16:16:42.920"/>
+</iter>
+<iter>
+<var name="${element}">Palvelut</var>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:43.921" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:42.921" endtime="20231014 16:16:43.921"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi/fi/Product/${element}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:43.922" level="INFO">Opening url 'https://www.jimms.fi/fi/Product/Palvelut'</msg>
+<status status="PASS" starttime="20231014 16:16:43.922" endtime="20231014 16:16:44.485"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:45.487" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:44.485" endtime="20231014 16:16:45.487"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:16:45.511" level="INFO">Element 'xpath://*[@id="ocCategories"]' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:16:45.488" endtime="20231014 16:16:45.511"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:45.488" endtime="20231014 16:16:45.512"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${for_value}</var>
+<arg>//*[@id="ocCategories"]</arg>
+<arg>id</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20231014 16:16:45.538" level="INFO">${for_value} = ocCategories</msg>
+<status status="PASS" starttime="20231014 16:16:45.512" endtime="20231014 16:16:45.538"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Be Equal As Strings</arg>
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20231014 16:16:45.538" endtime="20231014 16:16:45.539"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:45.538" endtime="20231014 16:16:45.539"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${element}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:16:45.540" level="INFO">Palvelut</msg>
+<status status="PASS" starttime="20231014 16:16:45.539" endtime="20231014 16:16:45.540"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:42.920" endtime="20231014 16:16:45.540"/>
+</iter>
+<iter>
+<var name="${element}">Kampanjat</var>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:46.541" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:45.541" endtime="20231014 16:16:46.541"/>
+</kw>
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi/fi/Product/${element}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:46.542" level="INFO">Opening url 'https://www.jimms.fi/fi/Product/Kampanjat'</msg>
+<status status="PASS" starttime="20231014 16:16:46.542" endtime="20231014 16:16:47.039"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:48.040" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20231014 16:16:47.039" endtime="20231014 16:16:48.040"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Element Should Be Visible</arg>
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath://*[@id="ocCategories"]</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:16:48.219" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20231014 16:16:48.219" level="FAIL">Element with locator 'xpath://*[@id="ocCategories"]' not found.</msg>
+<status status="FAIL" starttime="20231014 16:16:48.042" endtime="20231014 16:16:48.223"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:48.041" endtime="20231014 16:16:48.223"/>
+</kw>
+<kw name="Get Element Attribute" library="SeleniumLibrary">
+<var>${for_value}</var>
+<arg>//*[@id="ocCategories"]</arg>
+<arg>id</arg>
+<doc>Returns the value of ``attribute`` from the element ``locator``.</doc>
+<msg timestamp="20231014 16:16:48.394" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20231014 16:16:48.395" level="FAIL">Element with locator '//*[@id="ocCategories"]' not found.</msg>
+<status status="FAIL" starttime="20231014 16:16:48.224" endtime="20231014 16:16:48.397"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Be Equal As Strings</arg>
+<arg>${for_value}</arg>
+<arg>ocCategories</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<status status="NOT RUN" starttime="20231014 16:16:48.397" endtime="20231014 16:16:48.397"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${element}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20231014 16:16:48.398" endtime="20231014 16:16:48.398"/>
+</kw>
+<status status="FAIL" starttime="20231014 16:16:45.540" endtime="20231014 16:16:48.398"/>
+</iter>
+<status status="FAIL" starttime="20231014 16:16:18.984" endtime="20231014 16:16:48.399"/>
+</for>
+<status status="FAIL" starttime="20231014 16:16:18.915" endtime="20231014 16:16:48.399"/>
+</iter>
+<status status="FAIL" starttime="20231014 16:16:18.914" endtime="20231014 16:16:48.399"/>
+</for>
+<status status="FAIL" starttime="20231014 16:16:11.816" endtime="20231014 16:16:48.400">Element with locator '//*[@id="ocCategories"]' not found.</status>
+</test>
+<test id="s1-t2" name="2. Testaa hakutoimintoa tuotteen pääsivulta (hakusana ps5)" line="34">
+<kw name="Go To" library="SeleniumLibrary">
+<arg>http://www.jimms.fi</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:16:48.404" level="INFO">Opening url 'http://www.jimms.fi'</msg>
+<status status="PASS" starttime="20231014 16:16:48.404" endtime="20231014 16:16:48.952"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${ps}</var>
+<arg>PS5</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20231014 16:16:48.953" level="INFO">${ps} = PS5</msg>
+<status status="PASS" starttime="20231014 16:16:48.952" endtime="20231014 16:16:48.953"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath://*[@id="searchinput"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:16:48.954" level="INFO">Clicking element 'xpath://*[@id="searchinput"]'.</msg>
+<status status="PASS" starttime="20231014 16:16:48.954" endtime="20231014 16:16:49.106"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>xpath://*[@id="searchinput"]</arg>
+<arg>${ps}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:16:49.109" level="INFO">Typing text 'PS5' into text field 'xpath://*[@id="searchinput"]'.</msg>
+<status status="PASS" starttime="20231014 16:16:49.107" endtime="20231014 16:16:49.278"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:51.280" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20231014 16:16:49.279" endtime="20231014 16:16:51.280"/>
 </kw>
 <kw name="Click Link" library="SeleniumLibrary">
-<arg>xpath:/html/body/header/div/div[1]/jim-drilldown-mega-menu/nav/ul/li[1]/a</arg>
+<arg>xpath://*[@id="quickproductsearch"]/div/div/div/div[1]/p[1]/a</arg>
 <doc>Clicks a link identified by ``locator``.</doc>
-<msg timestamp="20231012 16:06:49.951" level="INFO">Clicking link 'xpath:/html/body/header/div/div[1]/jim-drilldown-mega-menu/nav/ul/li[1]/a'.</msg>
-<status status="PASS" starttime="20231012 16:06:49.951" endtime="20231012 16:06:50.024"/>
+<msg timestamp="20231014 16:16:51.282" level="INFO">Clicking link 'xpath://*[@id="quickproductsearch"]/div/div/div/div[1]/p[1]/a'.</msg>
+<status status="PASS" starttime="20231014 16:16:51.281" endtime="20231014 16:16:52.125"/>
 </kw>
-<status status="PASS" starttime="20231012 16:06:43.831" endtime="20231012 16:06:50.025"/>
+<kw name="Sleep" library="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:16:54.128" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20231014 16:16:52.126" endtime="20231014 16:16:54.128"/>
+</kw>
+<kw name="Capture Element Screenshot" library="SeleniumLibrary">
+<arg>xpath://*[@id="productsearchpage"]/div[2]/div[5]/div/div[1]/product-box/div[2]/div[1]/a/div/img</arg>
+<doc>Captures a screenshot from the element identified by ``locator`` and embeds it into log file.</doc>
+<msg timestamp="20231014 16:16:54.233" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-element-screenshot-1.png"&gt;&lt;img src="selenium-element-screenshot-1.png" width="400px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20231014 16:16:54.129" endtime="20231014 16:16:54.233"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath://*[@id="productsearchpage"]/div[2]/div[5]/div/div[1]/product-box/div[2]/div[2]/h5/a/span</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:16:54.237" level="INFO">Clicking element 'xpath://*[@id="productsearchpage"]/div[2]/div[5]/div/div[1]/product-box/div[2]/div[2]/h5/a/span'.</msg>
+<status status="PASS" starttime="20231014 16:16:54.235" endtime="20231014 16:17:02.062"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:17:04.064" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20231014 16:17:02.063" endtime="20231014 16:17:04.064"/>
+</kw>
+<kw name="Page Should Contain" library="SeleniumLibrary">
+<arg>${ps}</arg>
+<doc>Verifies that current page contains ``text``.</doc>
+<msg timestamp="20231014 16:17:04.094" level="INFO">Current page contains text 'PS5'.</msg>
+<status status="PASS" starttime="20231014 16:17:04.066" endtime="20231014 16:17:04.094"/>
+</kw>
+<status status="PASS" starttime="20231014 16:16:48.403" endtime="20231014 16:17:04.097"/>
 </test>
-<status status="PASS" starttime="20231012 16:06:43.662" endtime="20231012 16:06:50.026"/>
+<test id="s1-t3" name="3. Löytyykö tuotesivulta linkki &quot;Lisää koriin&quot;" line="51">
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath:/html/body/main/div[1]/div[2]/div/jim-product-cta-box/div/div[2]/div[2]/addto-cart-wrapper/div/a</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:17:04.130" level="INFO">Element 'xpath:/html/body/main/div[1]/div[2]/div/jim-product-cta-box/div/div[2]/div[2]/addto-cart-wrapper/div/a' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:17:04.100" endtime="20231014 16:17:04.130"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:04.099" endtime="20231014 16:17:04.131"/>
+</test>
+<test id="s1-t4" name="4. Löytyykö &quot;Lisää koriin&quot; -linkkiin liittyvä ikoni. Robotti ottaa ikonista kuvankaappauksen." line="55">
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>xpath:/html/body/main/div[1]/div[2]/div/jim-product-cta-box/div/div[2]/div[2]/addto-cart-wrapper/div/a/span</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20231014 16:17:04.187" level="INFO">Element 'xpath:/html/body/main/div[1]/div[2]/div/jim-product-cta-box/div/div[2]/div[2]/addto-cart-wrapper/div/a/span' is displayed.</msg>
+<status status="PASS" starttime="20231014 16:17:04.134" endtime="20231014 16:17:04.188"/>
+</kw>
+<kw name="Capture Element Screenshot" library="SeleniumLibrary">
+<arg>xpath:/html/body/main/div[1]/div[2]/div/jim-product-cta-box/div/div[2]/div[2]/addto-cart-wrapper/div/a/span</arg>
+<doc>Captures a screenshot from the element identified by ``locator`` and embeds it into log file.</doc>
+<msg timestamp="20231014 16:17:04.263" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-element-screenshot-2.png"&gt;&lt;img src="selenium-element-screenshot-2.png" width="400px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20231014 16:17:04.188" endtime="20231014 16:17:04.263"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:04.133" endtime="20231014 16:17:04.264"/>
+</test>
+<test id="s1-t5" name="5. Robotti lisää tuotteen ostoskoriin" line="60">
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath=//a[contains(@title, 'Lisää koriin')]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:04.267" level="INFO">Clicking element 'xpath=//a[contains(@title, 'Lisää koriin')]'.</msg>
+<status status="PASS" starttime="20231014 16:17:04.266" endtime="20231014 16:17:04.341"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:04.265" endtime="20231014 16:17:04.342"/>
+</test>
+<test id="s1-t6" name="6. Tuotenumeron poimiminen RMA hakemusta varten" line="64">
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${tuoteNumero}</var>
+<arg>xpath:/html/body/main/div[1]/div[2]/div/div/jim-product-sku-ean-warranty-info/div[1]/span</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:04.374" level="INFO">${tuoteNumero} = 3831109907993</msg>
+<status status="PASS" starttime="20231014 16:17:04.344" endtime="20231014 16:17:04.374"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${tuoteNumero}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:17:04.375" level="INFO">3831109907993</msg>
+<status status="PASS" starttime="20231014 16:17:04.375" endtime="20231014 16:17:04.376"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${tuoteNumero}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20231014 16:17:04.377" level="INFO">${tuoteNumero} = 3831109907993</msg>
+<status status="PASS" starttime="20231014 16:17:04.376" endtime="20231014 16:17:04.377"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:04.343" endtime="20231014 16:17:04.378"/>
+</test>
+<test id="s1-t7" name="7. Tuotenimen poimiminen RMA hakemusta varten" line="70">
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${tuoteNimi}</var>
+<arg>xpath:/html/body/main/div[1]/div[2]/div/jim-product-cta-box/div/h1/span[2]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:04.494" level="INFO">${tuoteNimi} = EK-QuantumX CoolingStation Monoblock for PS5, vesiblokki PS5-konsolille</msg>
+<status status="PASS" starttime="20231014 16:17:04.381" endtime="20231014 16:17:04.494"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${tuoteNimi}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:17:04.495" level="INFO">EK-QuantumX CoolingStation Monoblock for PS5, vesiblokki PS5-konsolille</msg>
+<status status="PASS" starttime="20231014 16:17:04.495" endtime="20231014 16:17:04.495"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${tuoteNimi}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20231014 16:17:04.496" level="INFO">${tuoteNimi} = EK-QuantumX CoolingStation Monoblock for PS5, vesiblokki PS5-konsolille</msg>
+<status status="PASS" starttime="20231014 16:17:04.496" endtime="20231014 16:17:04.497"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:04.380" endtime="20231014 16:17:04.497"/>
+</test>
+<test id="s1-t8" name="8. Tarkistetaan tuoteen saatavuus" line="76">
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${saatavuus}</var>
+<arg>xpath://*[@id="product-cta-box"]/div/div[2]/div[3]/availability-product/span/span</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:04.538" level="INFO">${saatavuus} = Ei varastossa</msg>
+<status status="PASS" starttime="20231014 16:17:04.500" endtime="20231014 16:17:04.538"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${saatavuus}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:17:04.540" level="INFO">Ei varastossa</msg>
+<status status="PASS" starttime="20231014 16:17:04.539" endtime="20231014 16:17:04.540"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:04.499" endtime="20231014 16:17:04.541"/>
+</test>
+<test id="s1-t9" name="9. Yhteystiedon tarkastaminen yhteystietosivulta" line="81">
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:17:04.543" level="INFO">Opening url 'https://www.jimms.fi'</msg>
+<status status="PASS" starttime="20231014 16:17:04.542" endtime="20231014 16:17:05.234"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>3</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:17:08.237" level="INFO">Slept 3 seconds</msg>
+<status status="PASS" starttime="20231014 16:17:05.235" endtime="20231014 16:17:08.237"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath:/html/body/div[1]/div/a[4]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:08.239" level="INFO">Clicking element 'xpath:/html/body/div[1]/div/a[4]'.</msg>
+<status status="PASS" starttime="20231014 16:17:08.238" endtime="20231014 16:17:08.842"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:17:10.844" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20231014 16:17:08.843" endtime="20231014 16:17:10.844"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${yhteystietonumero}</var>
+<arg>xpath://*[@id="jim-main"]/div[2]/div/div[2]/div/div/div[2]/div[1]/div/div/p[2]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:10.916" level="INFO">${yhteystietonumero} = phone +358 29 70 70700</msg>
+<status status="PASS" starttime="20231014 16:17:10.845" endtime="20231014 16:17:10.916"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${yhteystietonumero}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20231014 16:17:10.917" level="INFO">phone +358 29 70 70700</msg>
+<status status="PASS" starttime="20231014 16:17:10.917" endtime="20231014 16:17:10.918"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Should Contain</arg>
+<arg>${yhteystietonumero}</arg>
+<arg>+358</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${yhteystietonumero}</arg>
+<arg>+358</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20231014 16:17:10.919" endtime="20231014 16:17:10.919"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:10.918" endtime="20231014 16:17:10.919"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:04.542" endtime="20231014 16:17:10.920"/>
+</test>
+<test id="s1-t10" name="10. Jimms RMA lomake" line="91">
+<kw name="Go To" library="SeleniumLibrary">
+<arg>https://www.jimms.fi</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<msg timestamp="20231014 16:17:10.923" level="INFO">Opening url 'https://www.jimms.fi'</msg>
+<status status="PASS" starttime="20231014 16:17:10.923" endtime="20231014 16:17:11.385"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:17:13.388" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20231014 16:17:11.386" endtime="20231014 16:17:13.388"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Scroll Element Into View</arg>
+<arg>xpath:/html/body/footer/div[2]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Scroll Element Into View" library="SeleniumLibrary">
+<arg>xpath:/html/body/footer/div[2]</arg>
+<doc>Scrolls the element identified by ``locator`` into view.</doc>
+<msg timestamp="20231014 16:17:13.897" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20231014 16:17:13.898" level="FAIL">MoveTargetOutOfBoundsException: Message: move target out of bounds
+  (Session info: chrome=118.0.5993.70)
+Stacktrace:
+	GetHandleVerifier [0x00007FF617018EF2+54786]
+	(No symbol) [0x00007FF616F85612]
+	(No symbol) [0x00007FF616E3A4FD]
+	(No symbol) [0x00007FF616EBD375]
+	(No symbol) [0x00007FF616E9BE6A]
+	(No symbol) [0x00007FF616EB4D02]
+	(No symbol) [0x00007FF616E9BC43]
+	(No symbol) [0x00007FF616E70941]
+	(No symbol) [0x00007FF616E71B84]
+	GetHandleVerifier [0x00007FF617367F52+3524194]
+	GetHandleVerifier [0x00007FF6173BD800+3874576]
+	GetHandleVerifier [0x00007FF6173B5D7F+3843215]
+	GetHandleVerifier [0x00007FF6170B5086+694166]
+	(No symbol) [0x00007FF616F90A88]
+	(No symbol) [0x00007FF616F8CA94]
+	(No symbol) [0x00007FF616F8CBC2]
+	(No symbol) [0x00007FF616F7CC83]
+	BaseThreadInitThunk [0x00007FF947207344+20]
+	RtlUserThreadStart [0x00007FF9479826B1+33]
+</msg>
+<status status="FAIL" starttime="20231014 16:17:13.389" endtime="20231014 16:17:13.902"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:13.389" endtime="20231014 16:17:13.902"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:17:15.904" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20231014 16:17:13.903" endtime="20231014 16:17:15.904"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath:/html/body/footer/div[1]/div[2]/div[1]/ul/li[3]/a</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:15.906" level="INFO">Clicking element 'xpath:/html/body/footer/div[1]/div[2]/div[1]/ul/li[3]/a'.</msg>
+<status status="PASS" starttime="20231014 16:17:15.905" endtime="20231014 16:17:16.646"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>2</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20231014 16:17:18.648" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" starttime="20231014 16:17:16.647" endtime="20231014 16:17:18.648"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>xpath:/html/body/main/div[2]/div/div[2]/div/div/ol/li[2]/a</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:18.650" level="INFO">Clicking element 'xpath:/html/body/main/div[2]/div/div[2]/div/div/ol/li[2]/a'.</msg>
+<status status="PASS" starttime="20231014 16:17:18.649" endtime="20231014 16:17:19.293"/>
+</kw>
+<kw name="Select From List By Label" library="SeleniumLibrary">
+<arg>id:RmaTypeID</arg>
+<arg>Tuotteen takuu</arg>
+<doc>Selects options from selection list ``locator`` by ``labels``.</doc>
+<msg timestamp="20231014 16:17:19.294" level="INFO">Selecting options from selection list 'id:RmaTypeID' by label Tuotteen takuu.</msg>
+<status status="PASS" starttime="20231014 16:17:19.294" endtime="20231014 16:17:19.350"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:pf-SalesID</arg>
+<arg>12345</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:19.352" level="INFO">Typing text '12345' into text field 'id:pf-SalesID'.</msg>
+<status status="PASS" starttime="20231014 16:17:19.351" endtime="20231014 16:17:19.460"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:pf-Name</arg>
+<arg>Aku Ankka</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:19.462" level="INFO">Typing text 'Aku Ankka' into text field 'id:pf-Name'.</msg>
+<status status="PASS" starttime="20231014 16:17:19.461" endtime="20231014 16:17:19.583"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:pf-StreetAddress</arg>
+<arg>Katuosoite 69</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:19.585" level="INFO">Typing text 'Katuosoite 69' into text field 'id:pf-StreetAddress'.</msg>
+<status status="PASS" starttime="20231014 16:17:19.584" endtime="20231014 16:17:19.692"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:pf-PostalCode</arg>
+<arg>00000</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:19.693" level="INFO">Typing text '00000' into text field 'id:pf-PostalCode'.</msg>
+<status status="PASS" starttime="20231014 16:17:19.692" endtime="20231014 16:17:19.799"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:pf-City</arg>
+<arg>Ankkalinna</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:19.800" level="INFO">Typing text 'Ankkalinna' into text field 'id:pf-City'.</msg>
+<status status="PASS" starttime="20231014 16:17:19.799" endtime="20231014 16:17:19.910"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:pf-Email</arg>
+<arg>d@d.com</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:19.912" level="INFO">Typing text 'd@d.com' into text field 'id:pf-Email'.</msg>
+<status status="PASS" starttime="20231014 16:17:19.911" endtime="20231014 16:17:20.021"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:pf-Phone</arg>
+<arg>0401234567</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:20.023" level="INFO">Typing text '0401234567' into text field 'id:pf-Phone'.</msg>
+<status status="PASS" starttime="20231014 16:17:20.022" endtime="20231014 16:17:20.215"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:pf-RmaProductCode</arg>
+<arg>${tuoteNumero}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:20.216" level="INFO">Typing text '3831109907993' into text field 'id:pf-RmaProductCode'.</msg>
+<status status="PASS" starttime="20231014 16:17:20.215" endtime="20231014 16:17:20.350"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:pf-RmaProductName</arg>
+<arg>${tuoteNimi}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:20.351" level="INFO">Typing text 'EK-QuantumX CoolingStation Monoblock for PS5, vesiblokki PS5-konsolille' into text field 'id:pf-RmaProductName'.</msg>
+<status status="PASS" starttime="20231014 16:17:20.351" endtime="20231014 16:17:20.541"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:RmaMessage</arg>
+<arg>Tuoteessa on</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:20.543" level="INFO">Typing text 'Tuoteessa on' into text field 'id:RmaMessage'.</msg>
+<status status="PASS" starttime="20231014 16:17:20.542" endtime="20231014 16:17:20.656"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>id:pf-BankAccount</arg>
+<arg>FI2180000012345678</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20231014 16:17:20.657" level="INFO">Typing text 'FI2180000012345678' into text field 'id:pf-BankAccount'.</msg>
+<status status="PASS" starttime="20231014 16:17:20.656" endtime="20231014 16:17:20.798"/>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<arg>Scroll Element Into View</arg>
+<arg>xpath:/html/body/main/div[2]/div/div[2]/div/div/form/input[2]</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Scroll Element Into View" library="SeleniumLibrary">
+<arg>xpath:/html/body/main/div[2]/div/div[2]/div/div/form/input[2]</arg>
+<doc>Scrolls the element identified by ``locator`` into view.</doc>
+<msg timestamp="20231014 16:17:21.016" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg timestamp="20231014 16:17:21.016" level="FAIL">MoveTargetOutOfBoundsException: Message: move target out of bounds
+  (Session info: chrome=118.0.5993.70)
+Stacktrace:
+	GetHandleVerifier [0x00007FF617018EF2+54786]
+	(No symbol) [0x00007FF616F85612]
+	(No symbol) [0x00007FF616E3A4FD]
+	(No symbol) [0x00007FF616EBD375]
+	(No symbol) [0x00007FF616E9BE6A]
+	(No symbol) [0x00007FF616EB4D02]
+	(No symbol) [0x00007FF616E9BC43]
+	(No symbol) [0x00007FF616E70941]
+	(No symbol) [0x00007FF616E71B84]
+	GetHandleVerifier [0x00007FF617367F52+3524194]
+	GetHandleVerifier [0x00007FF6173BD800+3874576]
+	GetHandleVerifier [0x00007FF6173B5D7F+3843215]
+	GetHandleVerifier [0x00007FF6170B5086+694166]
+	(No symbol) [0x00007FF616F90A88]
+	(No symbol) [0x00007FF616F8CA94]
+	(No symbol) [0x00007FF616F8CBC2]
+	(No symbol) [0x00007FF616F7CC83]
+	BaseThreadInitThunk [0x00007FF947207344+20]
+	RtlUserThreadStart [0x00007FF9479826B1+33]
+</msg>
+<status status="FAIL" starttime="20231014 16:17:20.799" endtime="20231014 16:17:21.018"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:20.799" endtime="20231014 16:17:21.019"/>
+</kw>
+<status status="PASS" starttime="20231014 16:17:10.922" endtime="20231014 16:17:21.019"/>
+</test>
+<status status="FAIL" starttime="20231014 16:16:11.536" endtime="20231014 16:17:21.021"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="9" fail="1" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Jimms">Jimms</stat>
+<stat pass="9" fail="1" skip="0" id="s1" name="Jimms">Jimms</stat>
 </suite>
 </statistics>
 <errors>
